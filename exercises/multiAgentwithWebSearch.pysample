@@ -1,0 +1,20 @@
+from smolagents import CodeAgent, ToolCallingAgent, DuckDuckGoSearchTool, HfApiModel, VisitWebpageTool
+
+visit_webpage = VisitWebpageTool()
+model = HfApiModel(model_id="Qwen/Qwen2.5-Coder-32B-Instruct")
+
+# Create web agent and manager agent structure
+web_agent = ToolCallingAgent(
+    tools=[DuckDuckGoSearchTool(), visit_webpage],
+    model=model,
+    max_steps=10,
+    name="search",
+    description="The actual web agent"
+)
+
+manager_agent = CodeAgent(
+    tools=[],
+    model=model,
+    managed_agents=[web_agent],
+    additional_authorized_imports=["time", "numpy", "pandas"]
+)

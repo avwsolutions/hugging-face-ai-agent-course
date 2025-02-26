@@ -1,0 +1,10 @@
+from smolagents import CodeAgent, E2BSandbox
+
+sandbox = E2BSandbox()
+
+agent = CodeAgent(
+    tools=[],
+    sandbox=sandbox,
+    model=model,
+    additional_authorized_imports=["numpy"]
+)
